@@ -53,6 +53,7 @@ end
 n = Exercises.new
 puts "Which Exercises do you want to do"
 m = gets.chomp.to_i
+
 case m
 	when 1
 		n.nomanlization
