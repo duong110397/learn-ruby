@@ -17,8 +17,10 @@ class Exercises
 		result = arr.each_with_object(Hash.new(0)){|num,counts| counts[num] +=1} 
 		puts "most repeated elements ist #{arr.max_by{|num| result[num]}} and repeated #{result.values.max} times"
 	end
-	def fibonacci(n) 
-		n <= 1 ? n : fibonacci( n - 1 ) + fibonacci( n - 2 )
+	def fibonacci
+		puts "input a number" 
+		fib = Hash.new{|hash, key| hash[key] = key < 2 ? key : hash[key-1] + hash[key-2]}
+		puts "this fibonacci number of this number is #{fib[gets.chomp.to_i]}" 
 	end 
 	def equations
 		puts <<~_
@@ -53,17 +55,26 @@ end
 n = Exercises.new
 puts "Which Exercises do you want to do"
 m = gets.chomp.to_i
-case m
-	when 1
-		n.nomanlization
-	when 2
-		n.repeated
-	when 3
-		puts "Fibonacci number of input is #{n.fibonacci(gets.chomp.to_i)}"
-	when 4
-		n.equations
-	when 5	
-		n.reverse
+loop do 
+	case m
+		when 0 
+		break
+		when 1
+			n.nomanlization
+		break	
+		when 2
+			n.repeated
+		break
+		when 3
+			n.fibonacci
+		break
+		when 4
+			n.equations
+		break
+		when 5	
+			n.reverse
+		break
+	end
 end
 	
 
