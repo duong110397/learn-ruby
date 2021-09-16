@@ -7,7 +7,10 @@ class Exercises
 		capitalize = []
 		up_index = [0]
 		input = gets.chomp.to_s.bytes
-		input.each_with_index{|a, i| capitalize.push(a >= 65 && a <= 90 ? a + 32 : a) ; up_index.push(i+1) if a == 32} 
+		input.each_with_index do |a, i| 
+			capitalize.push(a >= 65 && a <= 90 ? a + 32 : a) 
+			up_index.push(i+1) if a == 32 
+		end 
 		up_index.each{|a| capitalize[a] -= 32}
 		puts capitalize.map{|a, i| a.chr}.join
 	end
@@ -17,10 +20,8 @@ class Exercises
 		result = arr.each_with_object(Hash.new(0)){|num,counts| counts[num] +=1} 
 		puts "most repeated elements ist #{arr.max_by{|num| result[num]}} and repeated #{result.values.max} times"
 	end
-	def fibonacci
-		puts "input a number" 
-		fib = Hash.new{|hash, key| hash[key] = key < 2 ? key : hash[key-1] + hash[key-2]}
-		puts "this fibonacci number of this number is #{fib[gets.chomp.to_i]}" 
+	def fibonacci(n) 
+		n <= 1 ? n : fibonacci( n - 1 ) + fibonacci( n - 2 ) 
 	end 
 	def equations
 		puts <<~_
@@ -49,7 +50,13 @@ class Exercises
 	def reverse
 		puts "Please input number that to reverse"
 		n = gets.chomp.to_i
-		puts "The reversed number of #{n} is #{n.digits.join.to_i}"
+		num = 0
+		while n > 0 
+			remainder = n % 10
+			num = num * 10 + remainder
+			n = n / 10 
+		end
+		puts "The reversed number of #{n} is #{num}"
 	end
 end
 n = Exercises.new
@@ -66,7 +73,8 @@ loop do
 			n.repeated
 		break
 		when 3
-			n.fibonacci
+			puts "please input n"
+			puts "the fibonacci of this number is #{n.fibonacci(gets.chomp.to_i)}"
 		break
 		when 4
 			n.equations
